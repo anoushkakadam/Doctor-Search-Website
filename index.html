@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Doctors</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>SearchDoc</h1>
+    
+  </header>
+  <div class="h2" >
+    <!-- <h2 id="text">Find your doctor here!</h2> -->
+
+    
+  </div>
+  <div class="form-container">
+    <form id="searchForm" method="GET" action="search.php">
+        <input type="text" name="specialization" placeholder="Enter Specialist">
+        <input type="text" name="location" placeholder="Enter Location">
+        <button type="submit">Search</button>
+      </form>
+  </div>
+
+ 
+  
+  <main id="resultsContainer">
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent form from submitting the traditional way
+          const formData = new FormData(this);
+          const params = new URLSearchParams(formData).toString();
+          
+          fetch(`search.php?${params}`)
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('resultsContainer').innerHTML = data;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        });
+      </script>
+  </main>
+
+  
+</body>
+</html>
